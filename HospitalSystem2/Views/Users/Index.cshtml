@@ -1,0 +1,103 @@
+﻿@using HospitalSystem2.ViewModels;
+@model List<UserVM>
+
+
+
+
+
+<!-- Bordered Table -->
+<div class="card">
+    <div class="card-header" style="display:flex;justify-content:space-between">
+        <h2 style="color:#009CFF">
+            İstifadəçilər
+        </h2>
+        <div>
+            @if (User.IsInRole("SuperAdmin"))
+            {
+            <a asp-action="Create" class="btn btn-primary text-white rounded-pill" style="margin-right:10px">Yarat</a>
+            }
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive text-nowrap">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Ad</th>
+                        <th>Soyad</th>
+                        <th>İstifadəçi adı</th>
+                        <th>Email</th>
+                        <th>Rol</th>
+                        <th>Status</th>
+                        @if (User.IsInRole("SuperAdmin"))
+                        {
+                            <th style="text-align:center">Hərəkətlər</th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (UserVM item in Model)
+                    {
+                        <tr>
+                            <td>
+                                 <strong>@item.Name</strong>
+                            </td>
+                            <td>
+                                <strong>@item.Surname</strong>
+                                </td>
+                            <td>
+                                <strong>@item.Username</strong>
+                               </td>
+                            <td>
+                                <strong>@item.Email</strong>
+                                </td>
+                            <td>
+                                <strong>@item.Role</strong>
+                                </td>
+                            
+                            <td>
+                                @if (item.IsDeactive)
+                                {
+                                    <span style="padding:4px 6px;background-color:red;color:white;border-radius:2px">Deaktiv</span>
+                                }
+                                else
+                                {
+                                    <span style="padding:4px 6px;background-color:green;color:white;border-radius:2px">Aktiv</span>
+                                }
+                            </td>
+
+                            <td>
+
+                                <div style="display:flex;justify-content:flex-end">
+                                    @if (User.IsInRole("SuperAdmin"))
+                                    {
+
+
+                                        <a class="btn btn-warning text-white rounded-pill" style="margin-right:10px" asp-action="ResetPassword" asp-route-id="@item.Id">Şifrəni Dəyiş</a>
+                                    }
+                                    @if (User.IsInRole("SuperAdmin"))
+                                    {
+                                    <a class="btn btn-info text-white rounded-pill" style="margin-right:10px" asp-action="Update" asp-route-id="@item.Id">Yeniləmə</a>
+                                    }
+                                    @if (User.IsInRole("SuperAdmin"))
+                                    {
+                                        @if (item.IsDeactive)
+                                        {
+                                            <a class="btn btn-success text-white rounded-pill" style="margin-right:10px;width:118px" asp-action="Activity" asp-route-id="@item.Id">Aktivləşdirin</a>
+                                        }
+                                        else
+                                        {
+                                            <a class="btn btn-danger text-white rounded-pill" style="margin-right:10px;width:118px" asp-action="Activity" asp-route-id="@item.Id">DeAktivləşdirin</a>
+                                        }
+                                    }
+
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!--/ Bordered Table -->

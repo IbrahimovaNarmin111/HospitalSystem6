@@ -1,0 +1,103 @@
+﻿@using HospitalSystem2.ViewModels;
+@model List<Company>
+
+<!-- Bordered Table -->
+<div class="card">
+    <div class="card-header" style="display:flex;justify-content:space-between">
+        <h2 style="color:#009CFF">
+            Sığorta Şirkətləri
+        </h2>
+        <div>
+            <a asp-action="Create" class="btn btn-primary text-white rounded-pill" style="margin-right:10px">Yarat</a>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive text-nowrap">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Şəkil</th>
+                        <th>Ad</th>
+                        <th>Təsvir</th>
+                        <th>Əlaqə</th>
+                        <th>Status</th>
+                        <th style="text-align:center">Hərəkətlər</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Company item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <img src="~/uploads/company/@item.Image" style="width:140px;height:110px;object-fit:cover" />
+                            </td>
+                            <td>
+                                <strong>@item.Name</strong>
+                            </td>
+                            <td>
+                                <strong>@item.Description</strong>
+                            </td>
+                            <td>
+                                <strong>@item.Contact</strong>
+                            </td>
+
+
+                            <td>
+                                @if (item.IsDeactive)
+                                {
+                                    <span style="padding:4px 6px;background-color:red;color:white;border-radius:2px">Deaktiv</span>
+                                }
+                                else
+                                {
+                                    <span style="padding:4px 6px;background-color:green;color:white;border-radius:2px">Aktiv</span>
+                                }
+                            </td>
+
+                            <td>
+
+                                <div style="display:flex;justify-content:flex-end">
+                                    <a class="btn btn-warning text-white rounded-pill" style="margin-right:10px" asp-action="Detail" asp-route-id="@item.Id">Təfərrüat</a>
+                                    <a class="btn btn-info text-white rounded-pill" style="margin-right:10px" asp-action="Update" asp-route-id="@item.Id">Yeniləmə</a>
+                                    <a class="btn btn-info text-white rounded-pill" style="margin-right:10px" asp-action="Delete" asp-route-id="@item.Id">Sil</a>
+                                    @if (item.IsDeactive)
+                                    {
+                                        <a class="btn btn-success text-white rounded-pill" style="margin-right:10px;width:118px" asp-action="Activity" asp-route-id="@item.Id">Aktivləşdirin</a>
+                                    }
+                                    else
+                                    {
+                                        <a class="btn btn-danger text-white rounded-pill" style="margin-right:10px;width:118px" asp-action="Activity" asp-route-id="@item.Id">DeAktivləşdirin</a>
+                                    }
+
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="d-flex justify-content-center mt-3">
+            <nav aria-label="...">
+                <ul class="pagination">
+                    @* <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                    </li>*@
+                    @for (int i = 1; i <= ViewBag.PageCount; i++)
+                    {
+                        <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@i">@i</a></li>
+                    }
+                    @* <li class="page-item active" aria-current="page">
+                    <a class="page-link" href="#">2</a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                    </li>*@
+                </ul>
+            </nav>
+        </div>
+
+    </div>
+</div>
+
+
+<!--/ Bordered Table -->

@@ -1,0 +1,8 @@
+﻿@model Room
+<div style="margin:45px"> 
+<img src="~/uploads/room/@Model.Image" style="height:300px;object-fit:cover" />
+<h4 style="margin-top:7px">Şöbənin Adı:@Model.Name</h4>
+    <p style="font-size:23px"><strong>Təsvir:@Model.Description</strong></p>
+    <div style="font-size:23px"><strong>Əlaqə:@Model.Contact</strong></div>
+<a asp-action="Index" class="btn btn-secondary mt-3">Geriyə qayıt</a>
+</div>

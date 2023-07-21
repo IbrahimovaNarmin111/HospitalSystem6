@@ -1,0 +1,14 @@
+﻿@model Randevu
+<div style="margin:40px;margin-bottom:250px">
+    
+    <h4 style="margin-top:7px">Xəstənin adı və soyadı:@Model.Name @Model.Surname</h4>
+    <p style="font-size:23px"><strong>Təsvir:@Model.Description</strong></p>
+    <p style="font-size:23px"><strong>Email:@Model.Email</strong></p>
+    <p style="font-size:23px"><strong>Əlaqə:@Model.Contact</strong></p>
+    <p style="font-size:23px"><strong>Doğum Tarixi:@Model.BirthDate.ToString("d/MM/yyyy") </strong></p>
+    <p style="font-size:23px"><strong>Randevu Tarixi:@Model.RandevuDate.ToString("d/MM/yyyy")</strong></p>
+    <p style="font-size:23px"><strong>Yazıldığı Həkim:@Model.Doctor.Name @Model.Doctor.Surname</strong></p>
+   
+    <a asp-action="Index" class="btn btn-secondary mt-3">Geriyə qayıt</a>
+</div>
+

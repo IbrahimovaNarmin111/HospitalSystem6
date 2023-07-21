@@ -1,0 +1,124 @@
+﻿@using HospitalSystem2.ViewModels;
+@model DashboardVM
+@{
+    List<Profit> todayMonthProfits = Model.Profits.Where(x => x.CreatedTime.Month == DateTime.Now.Month).ToList();
+    List<Cost> nowMonthCosts = Model.Costs.Where(x => x.CreatedTime.Month == DateTime.Now.Month).ToList();
+    List<Profit> todayProfits = Model.Profits.Where(x => x.CreatedTime.Day == DateTime.Now.Day).ToList();
+    double total = 0;
+    double totalProfits = 0;
+    double totalMonth = 0;
+    foreach (var item in todayMonthProfits)
+    {
+        total += item.Amount;
+    }
+    foreach (var item in nowMonthCosts)
+    {
+        totalMonth += item.Amount;
+    }
+    foreach (var item in todayProfits)
+    {
+        totalProfits += item.Amount;
+    }
+}
+<div @*style="margin-bottom:310px"*@ class="card">
+    <div style="margin-inline: auto;margin-bottom:20px">
+        <h3>Kassa</h3>
+    </div>
+    @if (Model != null)
+    {
+
+        <div class="row">
+            <div class="column">
+
+
+                <p><strong>Son dəyişmə vaxtı:   </strong>@Model.Total.LastModifiedTime</p>
+                <p style="min-inline-size: max-content;"><strong>Son dəyişmə səbəbi:   </strong>@Model.Total.LastModifiedDescription</p>
+                <p><strong>Qeyd edən şəxs:   </strong>@Model.Total.LastModifiedBy</p>
+                <p><strong>Miqdar:   </strong>@Model.Total.LastModifiedAmount Azn</p>
+
+            </div>
+
+            <div class="column">
+
+                <div class="total" style="display: block;margin-left:150px;width:max-content">
+                    <p style="margin:5px;font-size:15px;">Ümumi balans</p>
+                    @* <i class="fa fa-handshake"></i>*@
+                    <h5 style="color: white;margin:5px;font-size:30px;display:contents"><br>@Model.Total.TotalCash Azn</h5>
+                    <i style="margin-left:17px;color:white !important" class="fa fa-chart-bar fa-3x text-primary"></i>
+                </div>
+            </div>
+
+
+        </div>
+    }
+
+</div>
+<div class="container-fluid pt-4 px-4" style="    display: flex;
+    justify-content: center;">
+    <div class="row g-4">
+        <div class="col-sm-6 col-xl-3" style="width:max-content">
+            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                <i class="fa fa-chart-line fa-3x" style="color:#009CFF !important"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Son 30 gün gəlir</p>
+                    <h6 class="mb-0">@total Azn</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3" style="width:max-content;">
+            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                <i class="fa fa-chart-bar fa-3x" style="color:#009CFF !important"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Son 30 gün xərc</p>
+                    <h6 class="mb-0">@totalMonth Azn</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3" style="width:max-content;">
+            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                <i class="fa fa-chart-bar fa-3x" style="color:#009CFF !important"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Son 1 gün gəlir</p>
+                    <h6 class="mb-0">@totalProfits Azn</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .card {
+        background-color: #f2f2f2;
+        border-radius: 5px;
+        padding: 50px;
+        width: 300px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        margin: auto;
+        margin-top: 25px;
+        min-inline-size: max-content;
+    }
+
+    .column {
+        float: left;
+        width: 50%;
+        padding: 10px;
+    }
+
+    /* Clear floats after the columns */
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    .total {
+        background-color: #009CFF;
+        color: #fff;
+        border-radius: 5px;
+        padding: 5px;
+        margin-top: 10px;
+        display: flex;
+        /*/justify-content: space-between;/*/
+    }
+
+</style>
+

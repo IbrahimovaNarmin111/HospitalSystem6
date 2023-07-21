@@ -1,0 +1,11 @@
+﻿@model Doctor
+<div style="margin:45px">
+    <img src="~/uploads/doctor/@Model.Image" style="width:fit-content;height:400px;object-fit:cover" />
+    <br>
+    <br>
+    <h4>Həkimin adı və soyadı:Dr.@Model.Name @Model.Surname</h4>
+    <p style="font-size:23px"><strong>Təsvir:@Model.Description</strong></p>
+    <p style="font-size:23px"><strong>Email:@Model.Email</strong></p>
+    <div style="font-size:23px"><strong>Əlaqə:@Model.Contact</strong></div>
+    <a asp-action="Index" class="btn btn-secondary mt-3">Geriyə qayıt</a>
+</div>
